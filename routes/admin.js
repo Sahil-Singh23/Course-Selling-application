@@ -120,11 +120,17 @@ adminRouter.post("/course", adminMiddleware, async (req, res) => {
   });
 });
 
-adminRouter.put("/course", (req, res) => {});
+adminRouter.put("/course", adminMiddleware, async (req, res) => {});
 
-adminRouter.get("/course", (req, res) => {});
+adminRouter.get("/course", adminMiddleware, async (req, res) => {
+  const adminId = req.userId;
 
-adminRouter.use;
+  const adminCourses = await adminModel.find({
+    creatorId: adminId,
+  });
+
+  res.json({ YourCourses: adminCourses });
+});
 
 module.exports = {
   adminRouter: adminRouter,
