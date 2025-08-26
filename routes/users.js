@@ -92,9 +92,11 @@ userRouter.post("/signin", async (req, res) => {
 userRouter.get("/purchases", userMiddleware, async (req, res) => {
   const userId = req.userId;
 
-  const purchases = await purchaseModel.find({
-    userId,
-  });
+  const purchases = await purchaseModel
+    .find({
+      userId,
+    })
+    .populate("courseId", "title description price imageUrl");
 
   res.json({ purchases });
 });
